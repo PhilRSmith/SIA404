@@ -1,0 +1,356 @@
+UNIT TESTS
+PHILIP R SMITH
+for SIA (DOC/SPEC/DESIGN by Prof. Phipps)
+*********************
+ADD:
+addimmediate r1 1
+add r1 r1 r1
+addimmediate r2 10
+add r2 r1 r3
+interrupt 0
+interrupt 1
+halt
+
+//Expected outcome;
+//r1=2
+//r2=10
+//r3=12 (SUCCESS)
+
+addimmediate r1 -6
+addimmediate r2 6
+add r1 r1 r3
+add r1 r2 r2
+add r3 r2 r3
+interrupt 0
+
+//Expected outcome;
+//r1=-6
+//r3=-12
+//r2=0 (SUCCESS)
+
+*********************
+AND:
+addimmediate r1 6
+addimmediate r2 9
+and r1 r2 r3
+interrupt 0
+interrupt 1
+halt 
+
+//Expected outcome;
+//r1==6
+//r2==9
+//r3==0
+
+addimmediate r1 -10
+addimmediate r2 -7
+and r1 r2 r3
+interrupt 0
+interrupt 1
+halt 
+
+//Expected outcome;
+//r1==-10
+//r2==-7
+//r3==-16 (SUCCESS)
+*********************
+DIVIDE:
+addimmediate r1 10
+addimmediate r2 2
+divide r1 r2 r3
+interrupt 0
+interrupt 1
+halt 
+
+//Expected outcome;
+//r1==10
+//r2==2
+//r3==5 (SUCCESS)
+
+addimmediate r1 10
+addimmediate r2 0
+divide r1 r2 r3
+interrupt 0
+interrupt 1
+halt 
+
+//Expected outcome;
+//r1==10
+//r2==0
+//r3==DNE/ERROR (SUCCESS)
+
+addimmediate r1 8
+addimmediate r2 3
+divide r1 r2 r3
+interrupt 0
+interrupt 1
+halt 
+
+//Expected outcome;
+//r1==8
+//r2==3
+//r3==2 (SUCCESS)
+
+*********************
+SUBTRACT:
+addimmediate r1 5
+subtract r2 r1 r2
+subtract r3 r2 r3
+interrupt 0
+interrupt 1
+subtract r2 r2 r2
+subtract r1 r1 r1
+subtract r3 r3 r3
+interrupt 0
+interrupt 1
+halt 
+
+
+//Expected outcome; first interrupt
+//r1==5
+//r2==-5
+//r3==5
+//Expected outcome; second interrupt
+//r2==0
+//r1==0
+//r3==0 (SUCCESS)
+
+*********************
+OR:
+addimmediate r1 6
+addimmediate r2 9
+or r1 r2 r3
+interrupt 0
+interrupt 1
+subtract r1 r1 r1
+subtract r2 r2 r2
+subtract r3 r3 r3
+addimmediate r1 -4
+addimmediate r2 5
+or r1 r2 r3
+interrupt 0
+interrupt 1
+halt 
+
+//Expected outcome; first interrupt
+//r1==6
+//r2==9
+//r3==15
+//Expected outcome; second interrupt
+//r1==-4
+//r2==5
+//r3==-3 (SUCCESS)
+
+
+*********************
+MULTIPLY:
+addimmediate r1 10
+addimmediate r2 2
+multiply r1 r2 r3
+interrupt 0
+subtract r1 r1 r1
+subtract r2 r2 r2
+subtract r3 r3 r3
+addimmediate r1 10
+addimmediate r2 0
+multiply r1 r2 r3
+interrupt 0
+subtract r1 r1 r1
+subtract r2 r2 r2
+subtract r3 r3 r3
+addimmediate r1 8
+addimmediate r2 3
+multiply r1 r2 r3
+interrupt 0
+subtract r1 r1 r1
+subtract r2 r2 r2
+subtract r3 r3 r3
+addimmediate r1 -9
+addimmediate r2 3
+multiply r1 r2 r3
+interrupt 0
+subtract r1 r1 r1
+subtract r2 r2 r2
+subtract r3 r3 r3
+addimmediate r1 -9
+addimmediate r2 -3
+multiply r1 r2 r3
+interrupt 0
+interrupt 1
+halt 
+
+
+//Expected outcome; first interrupt
+//r1==10
+//r2==2
+//r3==20
+//Expected outcome; second interrupt
+//r1==10
+//r2==0
+//r3==0
+//Expected outcome; third interrupt
+//r1==8
+//r2==3
+//r3==24
+//Expected outcome; fourth interrupt
+//r1==-9
+//r2==3
+//r3==-27
+//Expected outcome; fifth interrupt
+//r1==-9
+//r2==-3
+//r3==27 (SUCCESS)
+
+
+*********************
+PUSH/POP:
+addimmediate r15 64
+addimmediate r1 14
+push r1
+pop r2
+interrupt 0 
+interrupt 1
+halt 
+
+//Expected outcome;
+//r1=14
+//r2=14
+//memory address 63=14 (SUCCESS)
+
+//note to self, did more tests on this but forgot to copy into this file
+
+*********************
+JUMP/CALL/RETURN:
+addimmediate r15 64 //0
+addimmediate r1 0 //2
+addimmediate r1 0 //4
+addimmediate r1 0 //6
+jump 7  //address 8-11
+addimmediate r1 0   //address 12
+call 13 //address 14-17
+addimmediate r1 0 //18
+addimmediate r1 0 //20
+addimmediate r1 0 //22
+halt //24
+addimmediate r2 5 //26
+return 
+
+//Expected outcome;
+//memory address 63 = 18
+//r2 =5  (SUCCESS)
+
+//note to self, did more tests on this but forgot to copy into this file
+
+*********************
+LOAD/STORE:
+addimmediate r1 5
+addimmediate r3 60
+store r1 r3 0
+interrupt 0
+interrupt 1
+halt 
+
+//Expected outcome;
+//memory address 63=5 (SUCCESS)
+
+addimmediate r1 5
+addimmediate r3 60
+store r1 r3 0
+load r2 r3
+interrupt 0
+interrupt 1
+halt 
+
+//Expected outcome;
+//memory address 63=5
+//r2 =5 (SUCCESS)
+
+addimmediate r1 5
+addimmediate r3 60
+store r1 r3 1
+interrupt 0
+interrupt 1
+halt 
+
+//Expected outcome;
+//memory address 65=5 (SUCCESS)
+
+
+addimmediate r1 5
+addimmediate r3 60
+store r1 r3 1
+addimmediate r3 2
+load r2 r3
+interrupt 0
+interrupt 1
+halt 
+
+//Expected outcome;
+//memory address 65=5
+//r2 =5 (SUCCESS)
+
+*********************
+BRANCHES:
+addImmediate r1 8
+addImmediate r2 9
+branchIfLess r1 r2 2
+halt 
+interrupt 0
+interrupt 1 
+halt 
+
+//Expected outcome; 
+//r1 =8
+//r2 =9
+//jump past halt and output the interrupt 1 (SUCCESS)
+
+addImmediate r1 8
+addImmediate r2 8
+branchIfLess r1 r2 2
+halt 
+interrupt 0
+interrupt 1 
+halt 
+
+//Expected outcome; 
+//r1 =8
+//r2 =8
+//halt before output (SUCCESS)
+
+addImmediate r1 8
+addImmediate r2 8
+branchIfEqual r1 r2 2
+halt 
+interrupt 0
+interrupt 1 
+halt 
+
+//Expected outcome; 
+//r1 =8
+//r2 =8
+//jump past halt and output the interrupt 1 (SUCCESS)
+
+addImmediate r1 8
+addImmediate r2 9
+branchIfEqual r1 r2 2
+halt 
+interrupt 0
+interrupt 1 
+halt 
+
+//Expected outcome; 
+//r1 =8
+//r2 =8
+//halt before output (SUCCESS)
+
+addImmediate r1 8
+addImmediate r2 8
+branchIfEqual r1 r2 -2
+halt 
+interrupt 0
+interrupt 1 
+halt 
+
+//Expected outcome;
+//INFINITE LOOP (SUCCESS)
+
