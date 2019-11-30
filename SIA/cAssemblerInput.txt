@@ -1,0 +1,34 @@
+addimmediate r1 10
+addimmediate r2 2
+multiply r1 r2 r3
+interrupt 0
+subtract r1 r1 r1
+subtract r2 r2 r2
+subtract r3 r3 r3
+addimmediate r1 10
+addimmediate r2 0
+multiply r1 r2 r3
+interrupt 0
+subtract r1 r1 r1
+subtract r2 r2 r2
+subtract r3 r3 r3
+addimmediate r1 8
+addimmediate r2 3
+multiply r1 r2 r3
+interrupt 0
+subtract r1 r1 r1
+subtract r2 r2 r2
+subtract r3 r3 r3
+addimmediate r1 -9
+addimmediate r2 3
+multiply r1 r2 r3
+interrupt 0
+subtract r1 r1 r1
+subtract r2 r2 r2
+subtract r3 r3 r3
+addimmediate r1 -9
+addimmediate r2 -3
+multiply r1 r2 r3
+interrupt 0
+interrupt 1
+halt 
