@@ -1,8 +1,11 @@
 # SIA404
 FINISHED SIA REPOSITORY (from desktop)
 
-Take unit tests and use to create assembly. 
-Take output binary file from DIR: SIA assembly.c and input into DIR: SIAVM siavm.c
+Takes text files with valid language as input and uses it to create assembly. 
+
+### To use:
+Input a text file with lines similar to those found in the SIA/cAssemblerInput file, into the SIA/Assembler.c execution (via command line or ide)
+Take output binary file from sia (cAssemblerOutput) and input into SIAVM/siavm.c.
 
 (Does not include pipeline addition of other SIA repository, just linear sequence)
 
@@ -10,7 +13,7 @@ SPECS by M Phipps
 
 Written by Philip R Smith Nov 2019
 
-## Valid Instructions: 
+## Valid Instructions and their functions: 
 - add (opcode 1)
 	Adds the values of 2 registers and places the answer in a third register. 
 	Example: add r1 r2 r3 ; r3  r1 + r2
