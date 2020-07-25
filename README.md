@@ -1,7 +1,7 @@
 # SIA404
 FINISHED SIA REPOSITORY (from desktop)
 
-Takes text files with valid language as input and uses it to create assembly. 
+Takes text files with valid language as input and uses it to create assembly. The assembly file can then be used to run instructions.
 
 ### To use:
 Input a text file with lines similar to those found in the SIA/cAssemblerInput file, into the SIA/Assembler.c execution (via command line or ide)
